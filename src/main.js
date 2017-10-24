@@ -15,9 +15,13 @@ import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import store from './store'
 
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';    // 使用 CSS
+
 // 注册组件
 Vue.use(VueResource)
 Vue.use(VueRouter)
+Vue.use(iView)
 
 
 // 路由

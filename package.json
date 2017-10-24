@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
+    "iview": "^2.5.1",
     "jquery": "^2.2.3",
     "vue": "^2.1.0",
     "vue-resource": "^1.2.0",

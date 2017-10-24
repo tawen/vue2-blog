@@ -1,54 +1,50 @@
 <template>
-<div class='mylogin h100'>
-  <div class="login h100">
-    <form>
-      <div class="form-area">
-        <div class='login-icon'><img src='../assets/img/user.png' class='pic-full'></div>
-        <input type="text" placeholder="Username" required="required" ref='user' name="username" v-model="userName" :value='user_name' /><br />
-        <div class='login-icon'><img src='../assets/img/pwd.png' class='pic-full' /></div>
-        <input type="password" placeholder="Password" required="required" ref='pwd' name="pwd" v-model="pwd" /><br>
-        <div class='two-btns'>
-          <router-link to="/register"><input type="button" value="Register" class='fl'></router-link>
-          <input type="button" @click="checkUser" value="Login" class='fr' />
-          <div class='clear'></div>
-        </div>
-      </div>
-    </form>
-    </div>
-    <input class='check_btn' type="hidden" id="chkRememberPass" name="chkRememberPass" checked="">
-    <div class='footer'>
-      <router-link to="/about"><span>關於我</span></router-link>|<span><router-link to="/diary/d_edit">發表動態</router-link></span>|<span><router-link to="/message_board/m_edit">給我留言🍀</router-link></span>
-    </div>
-    <div :class="[classbg, classFade]" ref='bg'>
-      <div class="modal" id="myModal" tabindex="2" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog">
-          <div class="modal-content fadeIn">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" @click='closemodel'>
-					&times;
-				</button>
-              <h4 class="modal-title" id="myModalLabel">
-                                                            提示
-                    </h4>
-            </div>
-            <div class="modal-body">
-              <span>{{notice_info}}</span>
-              <span :class='[info_hide, pl2]'><router-link to="/diary/d_edit"><span>发表东塔</span></router-link><span :class='direct'>|</span>
-              <span><router-link to="/message_board/m_edit">给我</router-link></span></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="login">
+  <br><br>
+  <Row>
+    <Col span="22" offset="1">
+        <Alert show-icon>登录窗口
+         <span slot="desc">成功的提示描述文案成功的提示描述文案成功的提示描述文案成功的提示描述文案成功的提示描述文案</span></Alert>
+     </Alert>
+    </Col>
+  </Row><br>
+  <Row>
+    <Col span="22" offset="1">
+    <Input type="text" size="large" placeholder="用户名" icon="person" required="required" ref='user' name="username" v-model="userName" :value='user_name' /></Input>
+    </Col>
+  </Row><br>
+  <Row>
+    <Col span="22" offset="1">
+    <Input type="password" size="large" placeholder="密码" icon="locked" required="required" ref='pwd' name="pwd" v-model="pwd" /></Input>
+    </Col>
+  </Row><br>
+  <Row>
+    <Col span="10" offset="1">
+    <router-link to="/register">
+      <Button long shape="circle">注册</Button>
+    </router-link>
+    </Col>
+    <Col span="10" offset="2">
+    <Button @click="checkUser" shape="circle" long type="primary">登录</Button>
+    </Col>
+
+  </Row>
+  <input class='check_btn' type="hidden" id="chkRememberPass" name="chkRememberPass" checked="">
+  <div class='footer'>
+    <router-link to="/about"><span>关于我</span></router-link>|
+    <span><router-link to="/diary/d_edit">发表动态</router-link></span>|
+    <span><router-link to="/message_board/m_edit">給我留言</router-link></span>
   </div>
+  <Modal v-model="modal1" title="登录成功" @on-ok="ok" @on-cancel="cancel">
+    <span>{{notice_info}}</span>
+    <span><router-link to="/diary/d_edit"><span>发表动态</span></router-link><span>|</span>
+    <span><router-link to="/message_board/m_edit">给我</router-link></span></span>
+  </Modal>
+</div>
 </template>
 <script>
-import {
-  mapState
-} from 'vuex'
-import {
-  setCookie
-} from '../js/setcookie.js'
+import {  mapState} from 'vuex'
+import {  setCookie} from '../js/setcookie.js'
 import axios from 'axios'
 import '../js/init.js'
 export default {
@@ -59,22 +55,20 @@ export default {
     return {
       userName: '',
       pwd: '',
-      classbg: 'bg',
-      classFade: '',
-      notice_info: '用戶名或者密碼錯誤或者不存在！',
-      info_hide: 'hide',
-      direct: 'direct',
-      pl2: 'pl2'
+      modal1: false,
+      notice_info: '用户名密码错误或不存在！'
     }
   },
   created() {
-    // this.userName = unescape(setCookie.setInfo().name);
-    // this.pwd = setCookie.setInfo().mypwd;
-    this.classFade = 'hide'
+     //this.userName = unescape(setCookie.setInfo().name);
+     //this.pwd = setCookie.setInfo().mypwd;
   },
   methods: {
-    closemodel: function() {
-      this.classFade = 'hide'
+    ok() {
+      this.$Message.info('点击了确定');
+    },
+    cancel() {
+      this.$Message.info('点击了取消');
     },
     checkUser() {
       var name = this.userName;
@@ -90,7 +84,6 @@ export default {
           },
           timeout: 3000
         }).then(function(response) {
-          // console.log(response.status)
           var i, flag;
           for (i in response.data) {
             if (name == response.data[i].user_name && pwd == response.data[i].user_pwd && name != '' && pwd != '') {
@@ -102,24 +95,34 @@ export default {
             if ((cookie_name != name && name != '' && cookie_name != '') || cookie_name == '') {
               setCookie.getInfo(self.userName, self.pwd);
               setCookie.userLogin();
-              self.classFade = '';
-              self.info_hide = '';
-              self.notice_info = '登錄成功！'
+              self.notice_info = '登录成功！';
+              self.$Message.success({
+                content: self.notice_info
+              });
+              self.modal1 = true
             } else if (cookie_name == name && name != '' && cookie_name != '') {
-              self.classFade = '';
-              self.info_hide = '';
-              self.notice_info = '登錄成功！'
+              self.notice_info = '登录成功';
+              self.$Message.success({
+                content: self.notice_info
+              });
+              self.modal1 = true
             }
           } else {
-            self.classFade = ''
+            self.$Message.error({
+              content: self.notice_info
+            });
           }
         }).catch(function(error) {
           console.log(error);
-          self.classFade = '';
-          self.notice_info = '服務器繁忙，請刷新頁面或者稍後重試!(Error code: 504)'
+          self.notice_info = '服務器繁忙，請刷新頁面或者稍後重試!(Error code: 504)';
+          self.$Message.error({
+            content: self.notice_info
+          });
         });
       } else {
-        self.classFade = ''
+        self.$Message.error({
+          content: self.notice_info
+        });
       }
     }
   }

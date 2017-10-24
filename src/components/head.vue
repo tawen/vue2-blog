@@ -10,9 +10,7 @@
 </div>
 </template>
 <script>
-import {
-  setCookie
-} from '../js/setcookie.js'
+import {  setCookie } from '../js/setcookie.js'
 export default {
   props: ['name'],
   methods: {

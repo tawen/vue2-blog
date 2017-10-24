@@ -11,7 +11,7 @@
 </div>
 <div class='footer'>
     <router-link to="/about"><span>关于我</span></router-link>|<span><router-link to="/diary/d_edit">发表动态</router-link></span>|<span><router-link to="/message_board/m_edit">給我留言</router-link></span>
-    <p><a href="http://www.miitbeian.gov.cn/">粤ICP备17055437号-1</a></p>
+    <p><a href="http://www.miitbeian.gov.cn/">晥ICP备17055437号-1</a></p>
 </div>
 <div class="notice-bg" ref='wechat'>
 				<div class="notice">
