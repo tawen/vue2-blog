@@ -33,7 +33,8 @@
             </div>
             <div class="modal-body">
               <span>{{notice_info}}</span>
-              <span :class='[info_hide, pl2]'><router-link to="/diary/d_edit"><span>發表動態</span></router-link><span :class='direct'>|</span><span><router-link to="/message_board/m_edit">給我留言🍀</router-link></span></span>
+              <span :class='[info_hide, pl2]'><router-link to="/diary/d_edit"><span>发表东塔</span></router-link><span :class='direct'>|</span>
+              <span><router-link to="/message_board/m_edit">给我</router-link></span></span>
             </div>
           </div>
         </div>

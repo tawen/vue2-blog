@@ -2,10 +2,10 @@
 <div class='main'>
   <commonhead></commonhead>
   <div :class='[message_title,isFix]'>
-    <span>動態列表：</span>
+    <span>动态列表：</span>
     <select name="myselect" id="myselect" @change='choose'>
-				<option value="my">個人動態</option>
-				<option selected='' value="all">全部動態</option>
+				<option value="my">个人动态</option>
+				<option selected='' value="all">全部动态</option>
 			</select>
   </div>
   <ul class='bg_brown'>
@@ -16,7 +16,7 @@
         </div>
         <div class='fl'>
           <span class='message_author'>{{ item.author }}</span></br>
-          <span class='message_date'>{{ item.date}}  發表動態</span>
+          <span class='message_date'>{{ item.date}}  列表动态</span>
         </div>
         <div class='clear'></div>
       </div>
@@ -27,7 +27,7 @@
       <div :class='[reward_area,reward_hide]'>
         <form action="">
           <input type="hidden" name="msgId" :value="item.msg_id" class='msg_id'>
-          <textarea type='text' class='reward_input' placeholder="在這裏評論"></textarea>
+          <textarea type='text' class='reward_input' placeholder="在这里评论"></textarea>
           <p class='two_btn'><span class='comment_btn' @click='comment(index)'>評論</span><span class='cancel_btn ml2' @click='cancel(index)'>取消</span></p>
 
       </form>
